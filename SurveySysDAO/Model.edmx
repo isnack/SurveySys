@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="surveySysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AlternativaSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pergunta_id" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClienteSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipousuario_id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="11" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerguntaSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipopergunta_id" Type="int" Nullable="false" />
+          <Property Name="enunciado" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionarioPerguntaSet">
+          <Key>
+            <PropertyRef Name="questionario_id" />
+            <PropertyRef Name="pergunta_id" />
+          </Key>
+          <Property Name="questionario_id" Type="int" Nullable="false" />
+          <Property Name="pergunta_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionarioSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RespostaSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_id" Type="int" Nullable="false" />
+          <Property Name="alternativa_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TipoPerguntaSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoUsuarioSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AlternativaSet_PerguntaSet">
+          <End Role="PerguntaSet" Type="Self.PerguntaSet" Multiplicity="1" />
+          <End Role="AlternativaSet" Type="Self.AlternativaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerguntaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AlternativaSet">
+              <PropertyRef Name="pergunta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClienteSet_TipoUsuarioSet">
+          <End Role="TipoUsuarioSet" Type="Self.TipoUsuarioSet" Multiplicity="1" />
+          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuarioSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ClienteSet">
+              <PropertyRef Name="tipousuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerguntaSet_TipoPerguntaSet">
+          <End Role="TipoPerguntaSet" Type="Self.TipoPerguntaSet" Multiplicity="1" />
+          <End Role="PerguntaSet" Type="Self.PerguntaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPerguntaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PerguntaSet">
+              <PropertyRef Name="tipopergunta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioPerguntaSet_PerguntaSet">
+          <End Role="PerguntaSet" Type="Self.PerguntaSet" Multiplicity="1" />
+          <End Role="QuestionarioPerguntaSet" Type="Self.QuestionarioPerguntaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerguntaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="QuestionarioPerguntaSet">
+              <PropertyRef Name="pergunta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioPerguntaSet_QuestionarioSet">
+          <End Role="QuestionarioSet" Type="Self.QuestionarioSet" Multiplicity="1" />
+          <End Role="QuestionarioPerguntaSet" Type="Self.QuestionarioPerguntaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionarioSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="QuestionarioPerguntaSet">
+              <PropertyRef Name="questionario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RespostaSet_AlternativaSet">
+          <End Role="AlternativaSet" Type="Self.AlternativaSet" Multiplicity="1" />
+          <End Role="RespostaSet" Type="Self.RespostaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AlternativaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RespostaSet">
+              <PropertyRef Name="alternativa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RespostaSet_ClienteSet">
+          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
+          <End Role="RespostaSet" Type="Self.RespostaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RespostaSet">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="surveySysModelStoreContainer">
+          <EntitySet Name="AlternativaSet" EntityType="Self.AlternativaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClienteSet" EntityType="Self.ClienteSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerguntaSet" EntityType="Self.PerguntaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionarioPerguntaSet" EntityType="Self.QuestionarioPerguntaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionarioSet" EntityType="Self.QuestionarioSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RespostaSet" EntityType="Self.RespostaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoPerguntaSet" EntityType="Self.TipoPerguntaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoUsuarioSet" EntityType="Self.TipoUsuarioSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AlternativaSet_PerguntaSet" Association="Self.FK_AlternativaSet_PerguntaSet">
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+            <End Role="AlternativaSet" EntitySet="AlternativaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClienteSet_TipoUsuarioSet" Association="Self.FK_ClienteSet_TipoUsuarioSet">
+            <End Role="TipoUsuarioSet" EntitySet="TipoUsuarioSet" />
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerguntaSet_TipoPerguntaSet" Association="Self.FK_PerguntaSet_TipoPerguntaSet">
+            <End Role="TipoPerguntaSet" EntitySet="TipoPerguntaSet" />
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioPerguntaSet_PerguntaSet" Association="Self.FK_QuestionarioPerguntaSet_PerguntaSet">
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+            <End Role="QuestionarioPerguntaSet" EntitySet="QuestionarioPerguntaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioPerguntaSet_QuestionarioSet" Association="Self.FK_QuestionarioPerguntaSet_QuestionarioSet">
+            <End Role="QuestionarioSet" EntitySet="QuestionarioSet" />
+            <End Role="QuestionarioPerguntaSet" EntitySet="QuestionarioPerguntaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RespostaSet_AlternativaSet" Association="Self.FK_RespostaSet_AlternativaSet">
+            <End Role="AlternativaSet" EntitySet="AlternativaSet" />
+            <End Role="RespostaSet" EntitySet="RespostaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RespostaSet_ClienteSet" Association="Self.FK_RespostaSet_ClienteSet">
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+            <End Role="RespostaSet" EntitySet="RespostaSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="surveySysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alternativa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="pergunta_id" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PerguntaSet" Relationship="Self.FK_AlternativaSet_PerguntaSet" FromRole="AlternativaSet" ToRole="PerguntaSet" />
+          <NavigationProperty Name="RespostaSet" Relationship="Self.FK_RespostaSet_AlternativaSet" FromRole="AlternativaSet" ToRole="RespostaSet" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tipousuario_id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TipoUsuarioSet" Relationship="Self.FK_ClienteSet_TipoUsuarioSet" FromRole="ClienteSet" ToRole="TipoUsuarioSet" />
+          <NavigationProperty Name="RespostaSet" Relationship="Self.FK_RespostaSet_ClienteSet" FromRole="ClienteSet" ToRole="RespostaSet" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tipopergunta_id" Type="Int32" Nullable="false" />
+          <Property Name="enunciado" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AlternativaSet" Relationship="Self.FK_AlternativaSet_PerguntaSet" FromRole="PerguntaSet" ToRole="AlternativaSet" />
+          <NavigationProperty Name="TipoPerguntaSet" Relationship="Self.FK_PerguntaSet_TipoPerguntaSet" FromRole="PerguntaSet" ToRole="TipoPerguntaSet" />
+          <NavigationProperty Name="QuestionarioSet" Relationship="Self.QuestionarioPerguntaSet" FromRole="PerguntaSet" ToRole="QuestionarioSet" />
+        </EntityType>
+        <EntityType Name="Questionario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PerguntaSet" Relationship="Self.QuestionarioPerguntaSet" FromRole="QuestionarioSet" ToRole="PerguntaSet" />
+        </EntityType>
+        <EntityType Name="Resposta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="cliente_id" Type="Int32" Nullable="false" />
+          <Property Name="alternativa_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AlternativaSet" Relationship="Self.FK_RespostaSet_AlternativaSet" FromRole="RespostaSet" ToRole="AlternativaSet" />
+          <NavigationProperty Name="ClienteSet" Relationship="Self.FK_RespostaSet_ClienteSet" FromRole="RespostaSet" ToRole="ClienteSet" />
+        </EntityType>
+        <EntityType Name="TipoPergunta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PerguntaSet" Relationship="Self.FK_PerguntaSet_TipoPerguntaSet" FromRole="TipoPerguntaSet" ToRole="PerguntaSet" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ClienteSet" Relationship="Self.FK_ClienteSet_TipoUsuarioSet" FromRole="TipoUsuarioSet" ToRole="ClienteSet" />
+        </EntityType>
+        <Association Name="FK_AlternativaSet_PerguntaSet">
+          <End Role="PerguntaSet" Type="surveySysModel.Pergunta" Multiplicity="1" />
+          <End Role="AlternativaSet" Type="surveySysModel.Alternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerguntaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AlternativaSet">
+              <PropertyRef Name="pergunta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RespostaSet_AlternativaSet">
+          <End Role="AlternativaSet" Type="surveySysModel.Alternativa" Multiplicity="1" />
+          <End Role="RespostaSet" Type="surveySysModel.Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AlternativaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RespostaSet">
+              <PropertyRef Name="alternativa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClienteSet_TipoUsuarioSet">
+          <End Role="TipoUsuarioSet" Type="surveySysModel.TipoUsuario" Multiplicity="1" />
+          <End Role="ClienteSet" Type="surveySysModel.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuarioSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ClienteSet">
+              <PropertyRef Name="tipousuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RespostaSet_ClienteSet">
+          <End Role="ClienteSet" Type="surveySysModel.Cliente" Multiplicity="1" />
+          <End Role="RespostaSet" Type="surveySysModel.Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RespostaSet">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerguntaSet_TipoPerguntaSet">
+          <End Role="TipoPerguntaSet" Type="surveySysModel.TipoPergunta" Multiplicity="1" />
+          <End Role="PerguntaSet" Type="surveySysModel.Pergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPerguntaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PerguntaSet">
+              <PropertyRef Name="tipopergunta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="QuestionarioPerguntaSet">
+          <End Role="PerguntaSet" Type="surveySysModel.Pergunta" Multiplicity="*" />
+          <End Role="QuestionarioSet" Type="surveySysModel.Questionario" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="surveySysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AlternativaSet" EntityType="surveySysModel.Alternativa" />
+          <EntitySet Name="ClienteSet" EntityType="surveySysModel.Cliente" />
+          <EntitySet Name="PerguntaSet" EntityType="surveySysModel.Pergunta" />
+          <EntitySet Name="QuestionarioSet" EntityType="surveySysModel.Questionario" />
+          <EntitySet Name="RespostaSet" EntityType="surveySysModel.Resposta" />
+          <EntitySet Name="TipoPerguntaSet" EntityType="surveySysModel.TipoPergunta" />
+          <EntitySet Name="TipoUsuarioSet" EntityType="surveySysModel.TipoUsuario" />
+          <AssociationSet Name="FK_AlternativaSet_PerguntaSet" Association="Self.FK_AlternativaSet_PerguntaSet">
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+            <End Role="AlternativaSet" EntitySet="AlternativaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RespostaSet_AlternativaSet" Association="Self.FK_RespostaSet_AlternativaSet">
+            <End Role="AlternativaSet" EntitySet="AlternativaSet" />
+            <End Role="RespostaSet" EntitySet="RespostaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClienteSet_TipoUsuarioSet" Association="Self.FK_ClienteSet_TipoUsuarioSet">
+            <End Role="TipoUsuarioSet" EntitySet="TipoUsuarioSet" />
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RespostaSet_ClienteSet" Association="Self.FK_RespostaSet_ClienteSet">
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+            <End Role="RespostaSet" EntitySet="RespostaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerguntaSet_TipoPerguntaSet" Association="Self.FK_PerguntaSet_TipoPerguntaSet">
+            <End Role="TipoPerguntaSet" EntitySet="TipoPerguntaSet" />
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+          </AssociationSet>
+          <AssociationSet Name="QuestionarioPerguntaSet" Association="Self.QuestionarioPerguntaSet">
+            <End Role="PerguntaSet" EntitySet="PerguntaSet" />
+            <End Role="QuestionarioSet" EntitySet="QuestionarioSet" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="surveySysModel.sysdiagrams" />
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="surveySysModelStoreContainer" CdmEntityContainer="surveySysEntities">
+          <EntitySetMapping Name="AlternativaSet">
+            <EntityTypeMapping TypeName="surveySysModel.Alternativa">
+              <MappingFragment StoreEntitySet="AlternativaSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pergunta_id" ColumnName="pergunta_id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClienteSet">
+            <EntityTypeMapping TypeName="surveySysModel.Cliente">
+              <MappingFragment StoreEntitySet="ClienteSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipousuario_id" ColumnName="tipousuario_id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerguntaSet">
+            <EntityTypeMapping TypeName="surveySysModel.Pergunta">
+              <MappingFragment StoreEntitySet="PerguntaSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipopergunta_id" ColumnName="tipopergunta_id" />
+                <ScalarProperty Name="enunciado" ColumnName="enunciado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionarioSet">
+            <EntityTypeMapping TypeName="surveySysModel.Questionario">
+              <MappingFragment StoreEntitySet="QuestionarioSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RespostaSet">
+            <EntityTypeMapping TypeName="surveySysModel.Resposta">
+              <MappingFragment StoreEntitySet="RespostaSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="alternativa_id" ColumnName="alternativa_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPerguntaSet">
+            <EntityTypeMapping TypeName="surveySysModel.TipoPergunta">
+              <MappingFragment StoreEntitySet="TipoPerguntaSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoUsuarioSet">
+            <EntityTypeMapping TypeName="surveySysModel.TipoUsuario">
+              <MappingFragment StoreEntitySet="TipoUsuarioSet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="QuestionarioPerguntaSet" TypeName="surveySysModel.QuestionarioPerguntaSet" StoreEntitySet="QuestionarioPerguntaSet">
+            <EndProperty Name="PerguntaSet">
+              <ScalarProperty Name="id" ColumnName="pergunta_id" />
+            </EndProperty>
+            <EndProperty Name="QuestionarioSet">
+              <ScalarProperty Name="id" ColumnName="questionario_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="surveySysModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
