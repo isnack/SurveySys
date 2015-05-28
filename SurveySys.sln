@@ -7,6 +7,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAO", "DAO", "{E420C427-A93
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySysDAO", "SurveySysDAO\SurveySysDAO.csproj", "{3731DB08-A4A7-4861-8491-1ACBF634C864}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{5B545295-20E6-4F0C-A5EB-178A8B9387FB}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI", "http://localhost:54643", "{FB1E26AE-51C0-4E42-AC01-BF7414F090E4}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{3731db08-a4a7-4861-8491-1acbf634c864}|SurveySysDAO.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_54643"
+		Debug.AspNetCompiler.PhysicalPath = "UI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54643\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_54643"
+		Release.AspNetCompiler.PhysicalPath = "UI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54643\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "UI\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +42,16 @@ Global
 		{3731DB08-A4A7-4861-8491-1ACBF634C864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3731DB08-A4A7-4861-8491-1ACBF634C864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3731DB08-A4A7-4861-8491-1ACBF634C864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB1E26AE-51C0-4E42-AC01-BF7414F090E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1E26AE-51C0-4E42-AC01-BF7414F090E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB1E26AE-51C0-4E42-AC01-BF7414F090E4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1E26AE-51C0-4E42-AC01-BF7414F090E4}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3731DB08-A4A7-4861-8491-1ACBF634C864} = {E420C427-A934-4682-A7F1-B182F37F03DC}
+		{FB1E26AE-51C0-4E42-AC01-BF7414F090E4} = {5B545295-20E6-4F0C-A5EB-178A8B9387FB}
 	EndGlobalSection
 EndGlobal
