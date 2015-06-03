@@ -88,5 +88,25 @@ namespace SurveySysDAO
             }
             
         }
+
+        public Cliente getByEmail(string email)
+        {
+
+            try
+            {
+                using(surveySysEntities ctx = new surveySysEntities())
+                {
+                    Cliente cliente = ctx.ClienteSet.Where(cl => cl.email == email).FirstOrDefault();
+                    return cliente;
+
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
     }
 }
