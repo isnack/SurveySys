@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurveySysDAO
 {
-    public class QuestionarioDAO
+    public class QuestionarioDAO :ICrud<Questionario>
     {
         public void Insert(Questionario pEntity)
         {

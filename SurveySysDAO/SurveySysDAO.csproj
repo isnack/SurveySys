@@ -79,6 +79,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="QuestionarioDAO.cs" />
+    <Compile Include="QuestionarioPerguntaDAO.cs" />
     <Compile Include="Resposta.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

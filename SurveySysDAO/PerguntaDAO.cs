@@ -79,5 +79,23 @@ namespace SurveySysDAO
                 throw;
             }
         }
+
+
+        public List<Pergunta> Lista(int id)
+        {
+            try
+            {
+                using (surveySysEntities ctx = new surveySysEntities())
+                {
+                    List<Pergunta> pergunta = ctx.PerguntaSet.Include("AlternativaSet").ToList();
+                    return pergunta;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
