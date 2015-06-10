@@ -17,6 +17,7 @@ namespace SurveySysDAO
         public Questionario()
         {
             this.PerguntaSet = new HashSet<Pergunta>();
+            this.RespostaSet = new HashSet<Resposta>();
         }
     
         public int id { get; set; }
@@ -24,5 +25,6 @@ namespace SurveySysDAO
         public string descricao { get; set; }
     
         public virtual ICollection<Pergunta> PerguntaSet { get; set; }
+        public virtual ICollection<Resposta> RespostaSet { get; set; }
     }
 }

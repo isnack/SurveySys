@@ -43,29 +43,56 @@ public partial class Cadastros_CadastroPergunta : System.Web.UI.Page
     }
     protected void btn_click(object sender, EventArgs e)
     {
-        Pergunta pergunta = new Pergunta();
-        PerguntaDAO perguntaDao = new PerguntaDAO();
+        using (surveySysEntities ctx = new surveySysEntities())
+        {
+            Pergunta pergunta = new Pergunta();
+            PerguntaDAO perguntaDao = new PerguntaDAO(ctx);
 
-        pergunta.tipopergunta_id = 1;
-        pergunta.enunciado = txtEnunciado.Text;
-        perguntaDao.Insert(pergunta);
+            pergunta.tipopergunta_id = 1;
+            pergunta.enunciado = txtEnunciado.Text;
+            perguntaDao.Insert(pergunta);
 
-        Alternativa alternativa;
-        AlternativaDAO alternativaDao = new AlternativaDAO();
-    
-    string message = "";
-    foreach (TextBox textBox in pnlAlternativas.Controls.OfType<TextBox>())
-    {
-        alternativa = new Alternativa();
+            Alternativa alternativa;
+            AlternativaDAO alternativaDao = new AlternativaDAO(ctx);
+            bool vazio = false;
+            
+            foreach (TextBox textBox in pnlAlternativas.Controls.OfType<TextBox>())
+            {
+                alternativa = new Alternativa();
+                if (textBox.Text.Trim() == null || textBox.Text.Trim() == "")
+                {
+                    vazio = true;
+                    break;
+                }
+                else
+                {
+                    alternativa.pergunta_id = pergunta.id;
+                    alternativa.descricao = textBox.Text;
+                    alternativaDao.Insert(alternativa);
+                    vazio = false;
+                }
+            }
+            if (vazio)
+            {
+                lblResposta.Text = "Informe as alternativas!";
+                lblResposta.ForeColor = System.Drawing.Color.Red;
+                lblResposta.Visible = true;
+               
+            }
+            else
+            { 
+                ctx.SaveChanges();
+                lblResposta.Text = "Cadastrado com sucesso!";
+                lblResposta.ForeColor = System.Drawing.Color.Green;
+                lblResposta.Visible = true;
+            }
+            
+           
 
-        alternativa.pergunta_id = pergunta.id;
-        alternativa.descricao = textBox.Text;
-
-        alternativaDao.Insert(alternativa);
+        }
     }
-
-    lblResposta.Text = "Inserido";
-    lblResposta.Visible = true;
-
+    protected void btnVoltar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("http://localhost:54643/Admin.aspx");
     }
 }

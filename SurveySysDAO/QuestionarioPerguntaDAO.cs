@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace SurveySysDAO
 {
-    class QuestionarioPerguntaDAO 
+    public class QuestionarioPerguntaDAO 
     {
+
+
+
        
     }
 }
+

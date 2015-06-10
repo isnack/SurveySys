@@ -17,8 +17,10 @@ namespace SurveySysDAO
         public int id { get; set; }
         public int cliente_id { get; set; }
         public int alternativa_id { get; set; }
+        public int questionario_id { get; set; }
     
         public virtual Alternativa AlternativaSet { get; set; }
         public virtual Cliente ClienteSet { get; set; }
+        public virtual Questionario QuestionarioSet { get; set; }
     }
 }

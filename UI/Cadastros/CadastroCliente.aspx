@@ -38,10 +38,14 @@
 
         <div class="pure-controls">
            
-            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="pure-button pure-button-primary" OnClick="btn_click" />
+            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="pure-button pure-button-primary" OnClick="btn_click" ValidationGroup="cadastro" />
             <asp:Label ID="lblResposta" runat="server"  Visible="false"></asp:Label>
         </div>
 
+        <asp:RequiredFieldValidator ID="rfvTxtNome" ControlToValidate="txtNome" runat="server" ErrorMessage="Informe o Nome" ValidationGroup="cadastro" ForeColor="Red"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvTxtEmail" ControlToValidate="txtEmail" runat="server" ErrorMessage="Informe o Email" ValidationGroup="cadastro" ForeColor="Red"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvTxtUsuario" ControlToValidate="txtUsuario" runat="server" ErrorMessage="Informe o Usuário" ValidationGroup="cadastro" ForeColor="Red"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvTxtSenha" ControlToValidate="txtSenha" runat="server" ErrorMessage="Informe uma Senha" ValidationGroup="cadastro" ForeColor="Red"></asp:RequiredFieldValidator>
     
 </form>
 </body>

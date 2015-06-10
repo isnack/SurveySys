@@ -8,21 +8,23 @@ namespace SurveySysDAO
 {
     public class ClienteDAO : ICrud<Cliente>
     {
+        private surveySysEntities ctx;
 
-
-
+        public ClienteDAO(surveySysEntities ctx)
+        {
+            this.ctx = ctx;
+        }
 
         public void Insert(Cliente pEntity)
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
 
-                    ctx.ClienteSet.Add(pEntity);
-                    ctx.SaveChanges();
 
-                }
+                this.ctx.ClienteSet.Add(pEntity);
+                   
+
+                
             }
             catch (Exception ex)
             {
@@ -36,12 +38,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
-                    ctx.ClienteSet.Remove(pEntity);
-                    ctx.SaveChanges();
 
-                }
+                this.ctx.ClienteSet.Remove(pEntity);
+                    
+
+                
             }
             catch (Exception)
             {
@@ -54,12 +55,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
-                    ctx.ClienteSet.Attach(pEntity);
-                    ctx.SaveChanges();
 
-                }
+                this.ctx.ClienteSet.Attach(pEntity);
+                    
+
+               
 
             }
             catch (Exception)
@@ -75,11 +75,10 @@ namespace SurveySysDAO
             
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+               
                    Cliente  cliente = ctx.ClienteSet.Where(cl => cl.id == id).FirstOrDefault();
                      return cliente;
-                }
+               
             }
             catch (Exception)
             {
@@ -94,18 +93,32 @@ namespace SurveySysDAO
 
             try
             {
-                using(surveySysEntities ctx = new surveySysEntities())
-                {
+               
                     Cliente cliente = ctx.ClienteSet.Where(cl => cl.email == email).FirstOrDefault();
                     return cliente;
 
-                }
+                
             }
             catch (Exception)
             {
                 
                 throw;
             }
+        }
+
+        public Cliente login(string login, string senha)
+        {
+            try
+            {
+               return ctx.ClienteSet.Where(cl => cl.usuario == login && cl.senha == senha).FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            
         }
 
     }

@@ -28,10 +28,9 @@ namespace SurveySysDAO
         public DbSet<Alternativa> AlternativaSet { get; set; }
         public DbSet<Cliente> ClienteSet { get; set; }
         public DbSet<Pergunta> PerguntaSet { get; set; }
-        public DbSet<Questionario> QuestionarioSet { get; set; }
         public DbSet<Resposta> RespostaSet { get; set; }
         public DbSet<TipoPergunta> TipoPerguntaSet { get; set; }
         public DbSet<TipoUsuario> TipoUsuarioSet { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<Questionario> QuestionarioSet { get; set; }
     }
 }

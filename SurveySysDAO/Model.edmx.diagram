@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="13e73499664c4b55838df310f67cd5df" Name="Diagram1">
-        <EntityTypeShape EntityType="surveySysModel.Alternativa" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.Cliente" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.Pergunta" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.Questionario" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.Resposta" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.TipoPergunta" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="surveySysModel.TipoUsuario" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+      <Diagram DiagramId="0a8380521e8d45dabfae30cab58a9cbf" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="surveySysModel.Alternativa" Width="1.5" PointX="6.375" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="surveySysModel.Cliente" Width="1.5" PointX="12.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="surveySysModel.Pergunta" Width="1.5" PointX="2.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="surveySysModel.Resposta" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="surveySysModel.TipoPergunta" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="surveySysModel.TipoUsuario" Width="1.5" PointX="10" PointY="4.375" IsExpanded="true" />
         <AssociationConnector Association="surveySysModel.FK_AlternativaSet_PerguntaSet" ManuallyRouted="false" />
         <AssociationConnector Association="surveySysModel.FK_RespostaSet_AlternativaSet" ManuallyRouted="false" />
         <AssociationConnector Association="surveySysModel.FK_ClienteSet_TipoUsuarioSet" ManuallyRouted="false" />
         <AssociationConnector Association="surveySysModel.FK_RespostaSet_ClienteSet" ManuallyRouted="false" />
         <AssociationConnector Association="surveySysModel.FK_PerguntaSet_TipoPerguntaSet" ManuallyRouted="false" />
-        <AssociationConnector Association="surveySysModel.QuestionarioPerguntaSet" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="surveySysModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="3.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="surveySysModel.Questionario" Width="1.5" PointX="4.375" PointY="0.5" />
+        <AssociationConnector Association="surveySysModel.QuestionarioPerguntaSet" />
+        <AssociationConnector Association="surveySysModel.FK_RespostaSet_QuestionarioSet" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

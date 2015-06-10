@@ -8,17 +8,21 @@ namespace SurveySysDAO
 {
     public class QuestionarioDAO :ICrud<Questionario>
     {
+        private surveySysEntities ctx;
+        public QuestionarioDAO(surveySysEntities ctx)
+        {
+            this.ctx = ctx;
+        }
         public void Insert(Questionario pEntity)
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
 
                     ctx.QuestionarioSet.Add(pEntity);
-                    ctx.SaveChanges();
+                    
 
-                }
+                
             }
             catch (Exception ex)
             {
@@ -31,12 +35,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     ctx.QuestionarioSet.Remove(pEntity);
-                    ctx.SaveChanges();
+                   
 
-                }
+               
             }
             catch (Exception)
             {
@@ -49,12 +52,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     ctx.QuestionarioSet.Attach(pEntity);
-                    ctx.SaveChanges();
+                    
 
-                }
+                
             }
             catch (Exception)
             {
@@ -67,16 +69,39 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+               
                     Questionario questionario = ctx.QuestionarioSet.Where(qt => qt.id == id).FirstOrDefault();
                     return questionario;
-                }
+               
             }
             catch (Exception ex)
             {
 
                 throw ex;
+            }
+        }
+
+        public List<Questionario> getQuestionarioNaoRespondidos(int clienteId)
+        {
+           try {
+                                
+              // var questionariosNaoRespondidos = (from q in ctx.QuestionarioSet where
+                                               //  !(from r in ctx.RespostaSet where r.cliente_id==clienteId select r).ToList().Contains(q.id) select q);
+               List<Questionario> questionarios = (from q in ctx.QuestionarioSet
+                                                  where !(from r in ctx.RespostaSet
+                                                          where r.cliente_id == clienteId
+                                                          select r.questionario_id)
+                                                            .Contains(q.id)
+                                                  select q).ToList();
+
+
+               
+                return questionarios;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

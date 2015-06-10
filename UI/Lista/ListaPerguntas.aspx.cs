@@ -11,19 +11,22 @@ public partial class Lista_ListaPerguntas : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-       
-        PerguntaDAO perguntaDAO = new PerguntaDAO();
-        int id =1;
+        using (surveySysEntities ctx = new surveySysEntities())
+        {
+            PerguntaDAO perguntaDAO = new PerguntaDAO(ctx);
+            int id = 1;
 
-        this.GridPergunta.DataSource = perguntaDAO.Lista(id);
-        this.GridPergunta.DataBind();
+            this.GridPergunta.DataSource = perguntaDAO.Lista(id);
+            this.GridPergunta.DataBind();
+        }
     }
    
     
     
     protected void GridPergunta_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        AlternativaDAO alt = new AlternativaDAO();
+        using(surveySysEntities ctx = new surveySysEntities()){
+        AlternativaDAO alt = new AlternativaDAO(ctx);
         
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
@@ -39,34 +42,40 @@ public partial class Lista_ListaPerguntas : System.Web.UI.Page
             ddlAlternativa.DataBind();                
             
             
+            }
         }
     }
     protected void GridPergunta_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-         PerguntaDAO perguntaDAO = new PerguntaDAO();
-        if (e.CommandName=="Select")
+        using (surveySysEntities ctx = new surveySysEntities())
         {
-            int index = int.Parse((string)e.CommandArgument);
-            int idPergunta = int.Parse(GridPergunta.DataKeys[index]["Id"].ToString());
-
-            if (Session["Perguntas"] == null)
+            PerguntaDAO perguntaDAO = new PerguntaDAO(ctx);
+            if (e.CommandName == "Select")
             {
-                List<Pergunta> perguntas = new List<Pergunta>();
+                int index = int.Parse((string)e.CommandArgument);
+                int idPergunta = int.Parse(GridPergunta.DataKeys[index]["Id"].ToString());
 
-                perguntas.Add(perguntaDAO.get(idPergunta));
-                Session["Perguntas"] = perguntas;
-                ClientScript.RegisterStartupScript(GetType(), "tst", "<script>window.close();</script>");
+                if (Session["Perguntas"] == null)
+                {
+                    List<Pergunta> perguntas = new List<Pergunta>();
 
-            }else{
-                List<Pergunta> perguntas = (List<Pergunta>)Session["Perguntas"];
-                perguntas.Add(perguntaDAO.get(idPergunta));
-                Session["Perguntas"] = perguntas;
-                ClientScript.RegisterStartupScript(GetType(), "tst", "<script>window.close();</script>");
+                    perguntas.Add(perguntaDAO.get(idPergunta));
+                    Session["Perguntas"] = perguntas;
+                    ClientScript.RegisterStartupScript(GetType(), "tst", "<script>window.close();</script>");
+
+                }
+                else
+                {
+                    List<Pergunta> perguntas = (List<Pergunta>)Session["Perguntas"];
+                    perguntas.Add(perguntaDAO.get(idPergunta));
+                    Session["Perguntas"] = perguntas;
+                    ClientScript.RegisterStartupScript(GetType(), "tst", "<script>window.close();</script>");
+                }
+
+
+
+
             }
-            
-           
-            
-            
         }
 
     }

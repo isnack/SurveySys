@@ -25,11 +25,13 @@
 
         <div class="pure-controls">
            
-            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="pure-button pure-button-primary" OnClick="btn_click"  />
+            <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="pure-button pure-button-primary" OnClick="btn_click" ValidationGroup="cadPergunta"  />
             <asp:Label ID="lblResposta" runat="server"  Visible="false"></asp:Label>
-             
+            <asp:RequiredFieldValidator ID="rfvEnunciado" ControlToValidate="txtEnunciado" runat="server" ErrorMessage="Informe um enunciado" ValidationGroup="cadPergunta" ForeColor="Red"></asp:RequiredFieldValidator>
         </div>
-
+         <div>
+             <asp:Button ID="btnVoltar" runat="server" Text="Voltar"  OnClick="btnVoltar_Click"/>
+         </div>
     
 </form>
 

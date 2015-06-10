@@ -15,19 +15,21 @@ public partial class Cadastros_CadastroCliente : System.Web.UI.Page
 
     protected void btn_click(object sender, EventArgs e)
     {
-        
+        using (surveySysEntities ctx = new surveySysEntities())
+        {
             Cliente cliente = new Cliente();
-            ClienteDAO clienteDAO = new ClienteDAO();
-            cliente.nome = txtNome.Text;
-            cliente.email=txtEmail.Text;
-            cliente.telefone = txtTelefone.Text;
+            ClienteDAO clienteDAO = new ClienteDAO(ctx);
+            cliente.nome = txtNome.Text.Trim();
+            cliente.email = txtEmail.Text.Trim();
+            cliente.telefone = txtTelefone.Text.Trim();
             cliente.tipousuario_id = 2;
-            cliente.usuario = txtUsuario.Text;
-            cliente.senha = txtSenha.Text;
+            cliente.usuario = txtUsuario.Text.Trim();
+            cliente.senha = txtSenha.Text.Trim();
             if (verificaEmail(cliente.email))
             {
 
                 clienteDAO.Insert(cliente);
+                ctx.SaveChanges();
                 if (cliente.id != 0)
                 {
                     lblResposta.ForeColor = System.Drawing.Color.Green;
@@ -48,25 +50,28 @@ public partial class Cadastros_CadastroCliente : System.Web.UI.Page
                 lblResposta.Visible = true;
 
             }
-           
 
-        
+
+        }
 
     }
 
     private bool verificaEmail(string email)
     {
-        Cliente cliente = new Cliente();
-        ClienteDAO clienteDAO = new ClienteDAO();
-        cliente = clienteDAO.getByEmail(email);
-        if (cliente!=null)
+        using (surveySysEntities ctx = new surveySysEntities())
         {
-            return false;
+            Cliente cliente = new Cliente();
+            ClienteDAO clienteDAO = new ClienteDAO(ctx);
+            cliente = clienteDAO.getByEmail(email);
+            if (cliente != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
-        else
-        {
-            return true;
-        }        
 
     }
 }

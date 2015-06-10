@@ -29,7 +29,11 @@
             </Columns>
         </asp:GridView>
 
-        <asp:Button ID="Button1" runat="server" Text="Salvar" OnClick="btnSalvar_Click" ValidationGroup="questionario" />
+        <asp:Button ID="btnSalvar" runat="server" Text="Salvar" OnClick="btnSalvar_Click" ValidationGroup="questionario" CssClass="pure-button pure-button-primary" />
+        <asp:Label ID="lblResposta" runat="server" Text="" Visible="false"></asp:Label>
+        <div>
+            <asp:Button ID="btnVoltar" runat="server" Text="Voltar" OnClick="btnVoltar_Click" CssClass="pure-button pure-button-primary" />
+        </div>
     </form>
 </body>
 </html>

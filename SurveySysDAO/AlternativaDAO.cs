@@ -8,17 +8,22 @@ namespace SurveySysDAO
 {
     public class AlternativaDAO :ICrud<Alternativa>
     {
+        private surveySysEntities ctx;
+        public AlternativaDAO(surveySysEntities ctx)
+        {
+            this.ctx = ctx;
+        }
+
         public void Insert(Alternativa pEntity)
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
-
+                
+                    ctx.Configuration.ValidateOnSaveEnabled = false;
                     ctx.AlternativaSet.Add(pEntity);
-                    ctx.SaveChanges();
+                    
 
-                }
+                
             }
             catch (Exception ex)
             {
@@ -31,12 +36,10 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     ctx.AlternativaSet.Remove(pEntity);
-                    ctx.SaveChanges();
+                    
 
-                }
             }
             catch (Exception)
             {
@@ -49,12 +52,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     ctx.AlternativaSet.Attach(pEntity);
-                    ctx.SaveChanges();
+                    
 
-                }
+                
             }
             catch (Exception)
             {
@@ -67,11 +69,10 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     Alternativa alternativa = ctx.AlternativaSet.Where(alt => alt.id == id).FirstOrDefault();
                     return alternativa;
-                }
+                
             }
             catch (Exception)
             {
@@ -84,10 +85,9 @@ namespace SurveySysDAO
         {
             try
             {
-                using(surveySysEntities ctx= new surveySysEntities())
-                {
+                
                    return ctx.AlternativaSet.Where(alt => alt.pergunta_id == perguntaId).ToList();
-                }
+                
 
             }
             catch (Exception ex)

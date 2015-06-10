@@ -8,17 +8,22 @@ namespace SurveySysDAO
 {
    public class PerguntaDAO :ICrud<Pergunta>
     {
+       private surveySysEntities ctx;
+       public PerguntaDAO(surveySysEntities ctx)
+       {
+           this.ctx = ctx;
+
+       }
         public void Insert(Pergunta pEntity)
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
 
-                    ctx.PerguntaSet.Add(pEntity);
-                    ctx.SaveChanges();
 
-                }
+                this.ctx.PerguntaSet.Add(pEntity);
+                    
+
+                
             }
             catch (Exception ex)
             {
@@ -31,12 +36,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
-                    ctx.PerguntaSet.Remove(pEntity);
-                    ctx.SaveChanges();
+               
+                   this.ctx.PerguntaSet.Remove(pEntity);
+                   
 
-                }
+               
             }
             catch (Exception)
             {
@@ -49,12 +53,11 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
-                    ctx.PerguntaSet.Attach(pEntity);
-                    ctx.SaveChanges();
+                
+                    this.ctx.PerguntaSet.Attach(pEntity);
+                   
 
-                }
+                
             }
             catch (Exception)
             {
@@ -67,11 +70,10 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+               
                     Pergunta pergunta = ctx.PerguntaSet.Where(pg => pg.id == id).FirstOrDefault();
                     return pergunta;
-                }
+                
             }
             catch (Exception)
             {
@@ -85,15 +87,26 @@ namespace SurveySysDAO
         {
             try
             {
-                using (surveySysEntities ctx = new surveySysEntities())
-                {
+                
                     List<Pergunta> pergunta = ctx.PerguntaSet.Include("AlternativaSet").ToList();
                     return pergunta;
-                }
+                
             }
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        public List<Pergunta> perguntaQuestionario(int questionarioId)
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+                
                 throw;
             }
         }
